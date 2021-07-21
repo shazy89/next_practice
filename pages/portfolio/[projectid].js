@@ -6,7 +6,7 @@ const PortfolioIndexPage = () => {
   console.log(router.query);
   return (
     <div>
-      <h1>The Portfolio Page</h1>
+      <h1>The Dynamic Portfolio Page </h1>
     </div>
   );
 };
