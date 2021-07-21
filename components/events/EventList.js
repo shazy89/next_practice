@@ -1,5 +1,6 @@
+import EventItem from "./EventItem";
 const EventList = ({ items }) => {
-  return <u></u>;
+  return <ul></ul>;
 };
 
 export default EventList;
