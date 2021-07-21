@@ -4,14 +4,6 @@ const HomePage = () => {
   return (
     <div>
       <h1>Hello World</h1>
-      <ul>
-        <li>
-          <Link href="/portfolio">Portfolio</Link>
-        </li>
-        <li>
-          <Link href="/portfolio/list">List</Link>
-        </li>
-      </ul>
     </div>
   );
 };
