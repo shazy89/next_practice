@@ -1,7 +1,11 @@
 import React from "react";
 
 const EventDetailPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Events by Id</h1>
+    </div>
+  );
 };
 
 export default EventDetailPage;
