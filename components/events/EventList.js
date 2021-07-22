@@ -1,5 +1,6 @@
 import EventItem from "./EventItem";
 const EventList = ({ items }) => {
+  console.log(items);
   return (
     <ul>
       {items.map((event) => (
