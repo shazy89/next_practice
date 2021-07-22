@@ -8,7 +8,7 @@ const EventItem = ({ title, image, date, location, id }) => {
     month: "numeric"
   });
   const formattedAddress = location.replace(", ", "\n");
-  console.log(hummanReadableDate);
+
   return (
     <li>
       <img src={"/" + image} alt={title} />
@@ -17,12 +17,14 @@ const EventItem = ({ title, image, date, location, id }) => {
           <h2>{title}</h2>
         </div>
         <div>
-          <time></time>
+          <time>{formattedAddress}</time>
         </div>
         <div>
           <address>{formattedAddress}</address>
         </div>
-        <div></div>
+        <div>
+          <Link href={`/events/${id}`}>Link </Link>
+        </div>
       </div>
     </li>
   );
