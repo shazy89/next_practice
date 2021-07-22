@@ -1,8 +1,9 @@
 import EventItem from "./EventItem";
+import classes from "../../styles/event-list.module.css";
+
 const EventList = ({ items }) => {
-  console.log(items);
   return (
-    <ul>
+    <ul className={classes.list}>
       {items.map((event) => (
         <EventItem
           id={event.id}
