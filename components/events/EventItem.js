@@ -1,7 +1,9 @@
 import React from "react";
-import Link from "next/link";
 import classes from "../../styles/evnt-item.module.css";
 import Button from "../ui/button";
+import AddressIcon from "../icons/address-icon";
+import ArrowRightIcon from "../icons/arrow-right-icon";
+import DateIcon from "../icons/date-icon";
 const EventItem = ({ title, image, date, location, id }) => {
   const hummanReadableDate = new Date(date).toLocaleDateString("en-US", {
     weekday: "long",
@@ -18,13 +20,20 @@ const EventItem = ({ title, image, date, location, id }) => {
           <h2>{title}</h2>
         </div>
         <div className={classes.date}>
+          <DateIcon />
           <time>{formattedAddress}</time>
         </div>
         <div className={classes.address}>
+          <AddressIcon />
           <address>{formattedAddress}</address>
         </div>
         <div className={classes.actions}>
-          <Button link={exploreLink}>Explore Event</Button>
+          <Button link={exploreLink}>
+            Explore Event{" "}
+            <span className={classes.icon}>
+              <ArrowRightIcon />
+            </span>
+          </Button>
         </div>
       </div>
     </li>
