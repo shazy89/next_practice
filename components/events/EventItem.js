@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import classes from "../../styles/evnt-item.module.css";
-
+import Button from "../ui/button";
 const EventItem = ({ title, image, date, location, id }) => {
   const hummanReadableDate = new Date(date).toLocaleDateString("en-US", {
     weekday: "long",
@@ -9,7 +9,7 @@ const EventItem = ({ title, image, date, location, id }) => {
     month: "numeric"
   });
   const formattedAddress = location.replace(", ", "\n");
-
+  const exploreLink = `/events/${id}`;
   return (
     <li className={classes.item}>
       <img src={"/" + image} alt={title} />
@@ -24,7 +24,7 @@ const EventItem = ({ title, image, date, location, id }) => {
           <address>{formattedAddress}</address>
         </div>
         <div className={classes.actions}>
-          <Link href={`/events/${id}`}>Explore Event</Link>
+          <Button link={exploreLink}>Explore Event</Button>
         </div>
       </div>
     </li>
