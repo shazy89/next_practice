@@ -24,7 +24,7 @@ const EventItem = ({ title, image, date, location, id }) => {
           <address>{formattedAddress}</address>
         </div>
         <div className={classes.actions}>
-          <Link href={`/events/${id}`}>Link </Link>
+          <Link href={`/events/${id}`}>Explore Event</Link>
         </div>
       </div>
     </li>
