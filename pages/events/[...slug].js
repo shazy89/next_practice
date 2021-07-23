@@ -3,6 +3,7 @@ import { getFilteredEvents } from "../../dummy-data";
 import EventList from "../../components/events/EventList";
 import ResultsTitle from "../../components/events/ResultsTitle";
 import Button from "../../components/ui/button";
+import ErrorAlert from "../../components/ui/error-alert";
 const FilteredEvents = () => {
   const router = useRouter();
   const filteredData = router.query.slug;
@@ -22,7 +23,16 @@ const FilteredEvents = () => {
     numMonth < 1 ||
     numMonth > 12
   ) {
-    return <p>Invalid Filter</p>;
+    return (
+      <>
+        <ErrorAlert>
+          <p>Invalid Filter</p>;
+        </ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show All Events</Button>
+        </div>
+      </>
+    );
   }
   const filteredEvents = getFilteredEvents({
     year: numYear,
@@ -31,9 +41,14 @@ const FilteredEvents = () => {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
-        <p> No evnts found for the chosen filter</p>;
-        <div className="center"></div>
-        <Button link="/events">Show All Events</Button>
+        <ErrorAlert>
+          {" "}
+          <p> No evnts found for the chosen filter</p>;
+        </ErrorAlert>
+
+        <div className="center">
+          <Button link="/events">Show All Events</Button>
+        </div>
       </>
     );
   }
