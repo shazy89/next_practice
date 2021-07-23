@@ -43,7 +43,7 @@ const FilteredEvents = () => {
       <>
         <ErrorAlert>
           {" "}
-          <p> No evnts found for the chosen filter</p>;
+          <p> No evnts found for the chosen filter</p>
         </ErrorAlert>
 
         <div className="center">
