@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { getFilteredEvents } from "../../dummy-data";
-
+import EventList from "../../components/events/EventList";
 const FilteredEvents = () => {
   const router = useRouter();
   const filteredData = router.query.slug;
@@ -22,16 +22,16 @@ const FilteredEvents = () => {
   ) {
     return <p>Invalid Filter</p>;
   }
-  const FilteredEvents = getFilteredEvents({
+  const filteredEvents = getFilteredEvents({
     year: numYear,
     month: numMonth
   });
-  if (!FilteredEvents || FilteredEvents.length === 0) {
+  if (!filteredEvents || filteredEvents.length === 0) {
     return <p>No filtered events</p>;
   }
   return (
     <div>
-      <h1>Filtered events. Please adjust your values!</h1>
+      <EventList items={filteredEvents} />
     </div>
   );
 };
