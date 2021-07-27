@@ -4,17 +4,17 @@ import useSWR from "swr";
 import { getFeaturedEvents } from "../dummy-data";
 import EventList from "../components/events/EventList";
 const HomePage = (props) => {
-  const [events, setSales] = useState(props.events);
+  const [events, setEvents] = useState(props.events);
 
   const { data, error } = useSWR(
     "https://practice-next-250c4-default-rtdb.firebaseio.com/events.json"
   );
   useEffect(() => {
     if (data) {
-      const transformedSales = [];
+      const featuredEvents = [];
 
       for (const key in data) {
-        transformedSales.push({
+        featuredEvents.push({
           id: key,
           date: data[key].date,
           description: data[key].description,
@@ -25,7 +25,7 @@ const HomePage = (props) => {
         });
       }
 
-      setSales(transformedSales);
+      setEvents(featuredEvents);
     }
   }, [data]);
   if (error) {
@@ -50,10 +50,10 @@ export async function getStaticProps() {
   );
   const data = await response.json();
 
-  const transformedSales = [];
+  const featuredEvents = [];
 
   for (const key in data) {
-    transformedSales.push({
+    featuredEvents.push({
       id: key,
       date: data[key].date,
       description: data[key].description,
@@ -64,7 +64,7 @@ export async function getStaticProps() {
     });
   }
 
-  return { props: { sales: transformedSales } };
+  return { props: { events: featuredEvents } };
 }
 
 export default HomePage;
