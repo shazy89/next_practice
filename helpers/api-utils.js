@@ -1,5 +1,6 @@
-export function getFeaturedEvents() {
-  return DUMMY_EVENTS.filter((event) => event.isFeatured);
+export async function getFeaturedEvents() {
+  const allEvents = await getAllEvents();
+  return allEvents.filter((event) => event.isFeatured);
 }
 
 export async function getAllEvents() {
@@ -9,12 +10,13 @@ export async function getAllEvents() {
   const data = await response.json();
 
   const events = [];
-  for (const keys in data) {
+  for (const key in data) {
     events.push({
       id: key,
       ...data[key] // we can use the spred operator for dynamic display of the data
     });
   }
+  return events;
 }
 
 export function getFilteredEvents(dateFilter) {

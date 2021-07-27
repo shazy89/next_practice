@@ -1,4 +1,4 @@
-import React from "react";
+import { getFeaturedEvents } from "../../helpers/api-utils";
 import { useRouter } from "next/router";
 import { getAllEvents } from "../../dummy-data";
 import EventList from "../../components/events/EventList";
