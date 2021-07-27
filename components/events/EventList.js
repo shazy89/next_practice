@@ -2,6 +2,9 @@ import EventItem from "./EventItem";
 import classes from "../../styles/event-list.module.css";
 
 const EventList = ({ items }) => {
+  if (!items) {
+    return <h4>Loading ...</h4>;
+  }
   return (
     <ul className={classes.list}>
       {items.map((event) => (

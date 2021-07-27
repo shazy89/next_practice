@@ -36,11 +36,11 @@ const HomePage = (props) => {
     return <p>Loading...</p>;
   }
   console.log(events);
-  const featuredEvents = getFeaturedEvents();
+  // const featuredEvents = getFeaturedEvents();
 
   return (
     <div>
-      <EventList items={featuredEvents} />
+      <EventList items={events} />
     </div>
   );
 };
