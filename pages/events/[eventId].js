@@ -1,4 +1,4 @@
-import { getEventById, getAllEvents } from "../../helpers/api-utils";
+import { getEventById, getFeaturedEvents } from "../../helpers/api-utils";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
@@ -41,9 +41,9 @@ export async function getStaticProps(context) {
   };
 }
 export async function getStaticPaths() {
-  const allEvents = await getAllEvents();
+  const events = await getFeaturedEvents();
 
-  const paths = allEvents.map((event) => ({ params: { eventId: event.Id } }));
+  const paths = events.map((event) => ({ params: { eventId: event.id } }));
   console.log(paths);
   return {
     paths: paths,
