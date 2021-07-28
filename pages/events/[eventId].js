@@ -37,14 +37,15 @@ export async function getStaticProps(context) {
   return {
     props: {
       selectedEvent: event
-    }
+    },
+    revalidate: 30
   };
 }
 export async function getStaticPaths() {
   const events = await getFeaturedEvents();
 
   const paths = events.map((event) => ({ params: { eventId: event.id } }));
-  console.log(paths);
+
   return {
     paths: paths,
     fallback: false // letting know next js that there arn't other pages
