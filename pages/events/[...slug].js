@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getFilteredEvents } from "../../dummy-data";
+import { getFilteredEvents } from "../../helpers/api-utils";
 import EventList from "../../components/events/EventList";
 import ResultsTitle from "../../components/events/ResultsTitle";
 import Button from "../../components/ui/button";
@@ -7,14 +7,14 @@ import ErrorAlert from "../../components/ui/error-alert";
 const FilteredEvents = (props) => {
   const router = useRouter();
   const filteredData = router.query.slug;
-  if (!filteredData) {
-    return <p className="center">Loading...</p>;
-  }
-  const filteredYear = filteredData[0];
-  const filteredMonth = filteredData[1];
-
-  const numYear = +filteredYear;
-  const numMonth = +filteredMonth;
+  //if (!filteredData) {
+  //  return <p className="center">Loading...</p>;
+  //}
+  //const filteredYear = filteredData[0];
+  //const filteredMonth = filteredData[1];
+  //
+  //const numYear = +filteredYear;
+  //const numMonth = +filteredMonth;
   if (props.hasError) {
     return (
       <>
@@ -27,10 +27,11 @@ const FilteredEvents = (props) => {
       </>
     );
   }
-  const filteredEvents = getFilteredEvents({
-    year: numYear,
-    month: numMonth
-  });
+  //  const filteredEvents = getFilteredEvents({
+  //    year: numYear,
+  //    month: numMonth
+  //  });
+  const filteredEvents = props.event;
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
@@ -54,7 +55,7 @@ const FilteredEvents = (props) => {
   );
 };
 export async function getServerSideProps({ params }) {
-  const filterData = params.slug;
+  const filteredData = params.slug;
 
   const filteredYear = filteredData[0];
   const filteredMonth = filteredData[1];
@@ -77,9 +78,12 @@ export async function getServerSideProps({ params }) {
       //}
     };
   }
-  const filteredEvents = getFilteredEvents({
+  const filteredEvents = await getFilteredEvents({
     year: numYear,
     month: numMonth
   });
+  return {
+    props: filteredEvents
+  };
 }
 export default FilteredEvents;
