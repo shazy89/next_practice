@@ -18,7 +18,7 @@ const AllEventsPage = ({ events }) => {
     </>
   );
 };
-export async function getStaticPaths() {
+export async function getStaticProps() {
   const events = await getAllEvents();
 
   return {
