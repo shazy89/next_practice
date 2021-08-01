@@ -1,11 +1,10 @@
-import { getFeaturedEvents } from "../../helpers/api-utils";
+//import { getFeaturedEvents } from "../../helpers/api-utils";
 import { useRouter } from "next/router";
-import { getAllEvents } from "../../dummy-data";
+import { getAllEvents } from "../../helpers/api-utils";
 import EventList from "../../components/events/EventList";
 import EventsSearch from "../../components/events/EventsSearch";
-const AllEventsPage = () => {
+const AllEventsPage = ({ events }) => {
   const router = useRouter();
-  const events = getAllEvents();
 
   const findEventsHandeler = (year, month) => {
     const fullPath = `/events/${year}/${month}`;
@@ -19,5 +18,13 @@ const AllEventsPage = () => {
     </>
   );
 };
+export async function getStaticPaths() {
+  const events = await getAllEvents();
 
+  return {
+    props: {
+      events
+    }
+  };
+}
 export default AllEventsPage;
