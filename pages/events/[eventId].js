@@ -8,9 +8,9 @@ const EventDetailPage = (props) => {
   if (!event) {
     return (
       <>
-        <ErrorAlert>
-          <p>No event found!</p>;
-        </ErrorAlert>
+        <div className="center">
+          <p>Loading .....</p>;
+        </div>
       </>
     );
   }
@@ -42,13 +42,14 @@ export async function getStaticProps(context) {
   };
 }
 export async function getStaticPaths() {
-  const events = await getFeaturedEvents();
+  const events = await getFeaturedEvents(); //insted of fetching all the data simply we fetch th featured events data
 
   const paths = events.map((event) => ({ params: { eventId: event.id } }));
-
+  // optimizing
   return {
     paths: paths,
-    fallback: false // letting know next js that there arn't other pages
+    fallback: true // letting know next js that there arn't other pages
+    // fallback: blocking - will not serve enything until were done generating this age
   };
 }
 
