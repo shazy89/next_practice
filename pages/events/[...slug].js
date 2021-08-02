@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { getFilteredEvents } from "../../helpers/api-utils";
+import useSWR from "swr";
 import EventList from "../../components/events/EventList";
 import ResultsTitle from "../../components/events/ResultsTitle";
 import Button from "../../components/ui/button";
@@ -7,14 +8,17 @@ import ErrorAlert from "../../components/ui/error-alert";
 const FilteredEvents = (props) => {
   const router = useRouter();
   const filteredData = router.query.slug;
-  //if (!filteredData) {
-  //  return <p className="center">Loading...</p>;
-  //}
-  //const filteredYear = filteredData[0];
-  //const filteredMonth = filteredData[1];
-  //
-  //const numYear = +filteredYear;
-  //const numMonth = +filteredMonth;
+  const { data, error } = useSWR(
+    "https://practice-next-250c4-default-rtdb.firebaseio.com/events.json"
+  );
+  if (!filteredData) {
+    return <p className="center">Loading...</p>;
+  }
+  const filteredYear = filteredData[0];
+  const filteredMonth = filteredData[1];
+
+  const numYear = +filteredYear;
+  const numMonth = +filteredMonth;
   if (props.hasError) {
     return (
       <>
@@ -31,6 +35,7 @@ const FilteredEvents = (props) => {
   //    year: numYear,
   //    month: numMonth
   //  });
+  debugger;
   const filteredEvents = props.event;
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
@@ -46,7 +51,9 @@ const FilteredEvents = (props) => {
       </>
     );
   }
-  const date = new Date(numYear, numMonth - 1);
+
+  const date = new Date(props.date.year, props.date.month - 1);
+
   return (
     <>
       <ResultsTitle date={date} />
@@ -83,7 +90,13 @@ export async function getServerSideProps({ params }) {
     month: numMonth
   });
   return {
-    props: filteredEvents
+    props: {
+      events: filteredEvents,
+      date: {
+        year: numYear,
+        month: numMonth
+      }
+    }
   };
 }
 export default FilteredEvents;
