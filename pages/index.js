@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import Head from "next/head";
 
 import { getFeaturedEvents } from "../dummy-data";
 import EventList from "../components/events/EventList";
@@ -40,6 +39,9 @@ const HomePage = (props) => {
 
   return (
     <div>
+      <Head>
+        <title>NextJS EVENTS</title>
+      </Head>
       <EventList items={props.events} />
     </div>
   );
