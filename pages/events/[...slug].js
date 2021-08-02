@@ -11,10 +11,7 @@ import ErrorAlert from "../../components/ui/error-alert";
 function FilteredEventsPage(props) {
   const [loadedEvents, setLoadedEvents] = useState();
   const router = useRouter();
-  <Head>
-    <title>NextJS Events</title>
-    <meta name="description" content="Find a lot of events here" />
-  </Head>;
+
   const filterData = router.query.slug;
 
   const { data, error } = useSWR(
@@ -45,7 +42,12 @@ function FilteredEventsPage(props) {
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
-
+  const pageHead = (
+    <Head>
+      <title>NextJS Events</title>
+      <meta name="description" content="Find a lot of events here" />
+    </Head>
+  );
   if (
     isNaN(numYear) ||
     isNaN(numMonth) ||
@@ -56,14 +58,15 @@ function FilteredEventsPage(props) {
     error
   ) {
     return (
-      <Fragment>
+      <>
+        {pageHead}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
         </div>
-      </Fragment>
+      </>
     );
   }
 
@@ -78,6 +81,7 @@ function FilteredEventsPage(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <Fragment>
+        {pageHead}
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
@@ -92,6 +96,7 @@ function FilteredEventsPage(props) {
 
   return (
     <Fragment>
+      {pageHead}
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </Fragment>
