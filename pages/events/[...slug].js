@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-
+import Head from "next/head";
 import { getFilteredEvents } from "../../helpers/api-utils";
 import EventList from "../../components/events/EventList";
 import ResultsTitle from "../../components/events/ResultsTitle";
@@ -11,7 +11,10 @@ import ErrorAlert from "../../components/ui/error-alert";
 function FilteredEventsPage(props) {
   const [loadedEvents, setLoadedEvents] = useState();
   const router = useRouter();
-
+  <Head>
+    <title>NextJS Events</title>
+    <meta name="description" content="Find a lot of events here" />
+  </Head>;
   const filterData = router.query.slug;
 
   const { data, error } = useSWR(
