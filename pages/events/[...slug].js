@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter, useEffect, useState } from "next/router";
 import { getFilteredEvents } from "../../helpers/api-utils";
 import useSWR from "swr";
 import EventList from "../../components/events/EventList";
@@ -6,11 +6,24 @@ import ResultsTitle from "../../components/events/ResultsTitle";
 import Button from "../../components/ui/button";
 import ErrorAlert from "../../components/ui/error-alert";
 const FilteredEvents = (props) => {
+  const [loadedEvents, setLoadedEvents] = useState();
   const router = useRouter();
   const filteredData = router.query.slug;
   const { data, error } = useSWR(
     "https://practice-next-250c4-default-rtdb.firebaseio.com/events.json"
   );
+  useEffect(() => {
+    if (data) {
+      const events = [];
+
+      for (const key in data) {
+        events.push({
+          id: key,
+          ...data[key]
+        });
+      }
+    }
+  }, [data]);
   if (!filteredData) {
     return <p className="center">Loading...</p>;
   }
